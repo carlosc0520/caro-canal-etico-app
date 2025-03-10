@@ -1,0 +1,38 @@
+<section>
+  <h2 class="text-2xl font-semibold mb-6 text-gray-600">Asignar una contraseña a la denuncia</h2>
+
+  <p class="text-gray-600 text-sm mb-4">
+    Para acceder a la información de la comunicación, es indispensable crear una contraseña.
+  </p>
+
+  <div class="mb-4 relative">
+    <label class="block text-gray-700 font-medium mb-1">Contraseña</label>
+    <div class="relative">
+      <input formControlName="contrasena" placeholder="Contraseña" class="w-full border p-2 rounded pr-10">
+    </div>
+    <small *ngIf="form.get('contrasena')?.invalid && form.get('contrasena')?.touched" class="text-red-500">La contraseña es obligatoria</small>
+  </div>
+
+  <div class="mb-4 relative">
+    <label class="block text-gray-700 font-medium mb-1">Repetir contraseña</label>
+    <div class="relative">
+      <input formControlName="repetirContrasena" placeholder="Repetir contraseña" class="w-full border p-2 rounded pr-10">
+    </div>
+    <small *ngIf="form.get('repetirContrasena')?.invalid && form.get('repetirContrasena')?.touched" class="text-red-500">Debe repetir la contraseña</small>
+    <small *ngIf="form.get('repetirContrasena')?.touched && form.get('contrasena')?.value !== form.get('repetirContrasena')?.value" class="text-red-500">Las contraseñas no coinciden</small>
+  </div>
+
+  <p class="text-gray-600 text-sm mb-4">
+    Hemos detectado que no has proporcionado un correo electrónico. Se puede proporcionar de manera opcional un e-mail que permitirá recuperar la contraseña en caso de pérdida para poder acceder al contenido de la comunicación. Este e-mail será tratado de manera confidencial. Tu comunicación seguirá siendo completamente anónima.
+  </p>
+
+  <div class="mb-4">
+    <label class="block text-gray-700 font-medium mb-1">Correo</label>
+    <input type="email" formControlName="correo" placeholder="Correo" class="w-full border p-2 rounded">
+    <small *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched" class="text-red-500">Debe ingresar un correo válido</small>
+  </div>
+
+  <button type="button" class="float-right p-3 text-white rounded-xl disabled:bg-gray-400 bg-gray-600 hover:bg-gray-700 mt-4">
+    Enviar
+  </button>
+</section>
