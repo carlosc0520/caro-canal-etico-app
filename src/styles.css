@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
 body {
     font-family: 'Montserrat', sans-serif;
+}
+
+.shadow-beautiful {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
