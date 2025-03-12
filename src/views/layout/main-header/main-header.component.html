@@ -6,16 +6,16 @@
                     <img src="https://ccfirma.com/wp-content/uploads/2023/06/logo-2024-4-1.png" class="sm:h-9" alt="Logo" />
                 </a>
                 <div class="px-6 py-2 flex justify-around gap-x-6 text-white">
-                    <a href="#inicio" class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent hover:border-orange-500">
+                    <button (click)="navigateTo('inicio')" class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent" [class.border-orange-500]="activeSection === 'inicio'">
                         Inicio
-                    </a>
-                    <button class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent hover:border-orange-500">
+                    </button>
+                    <button (click)="navigateTo('queEs')" class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent" [class.border-orange-500]="activeSection === 'queEs'">
                         ¿Que es Canal Denuncia?
                     </button>
-                    <button class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent hover:border-orange-500">
+                    <button (click)="navigateTo('comoEnviar')" class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent" [class.border-orange-500]="activeSection === 'comoEnviar'">
                         ¿Como enviar una Denuncia?
                     </button>
-                    <button class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent hover:border-orange-500">
+                    <button (click)="navigateTo('soporte')" class="py-2 justify-center text-xs font-bold cursor-pointer transition-all uppercase border-b-4 border-transparent" [class.border-orange-500]="activeSection === 'soporte'">
                         Soporte
                     </button>
                 </div>

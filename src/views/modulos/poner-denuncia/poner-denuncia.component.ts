@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ChildrenOutletContexts, Router } from '@angular/router';
+import { FormularioDenunciaService } from 'src/resources/services/modulos/poner-denuncia/formulario-denuncia.service';
 
 @Component({
   selector: 'app-poner-denuncia',
@@ -18,7 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     ])
   ]
 })
-export class PonerDenunciaComponent {
+export class PonerDenunciaComponent implements OnInit {
 
   steps = [
     { label: 'Hechos', path: 'datos-hecho' },
@@ -37,14 +38,49 @@ export class PonerDenunciaComponent {
 
   currentStepIndex = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private contexts: ChildrenOutletContexts,
+    private formularioDenunciaService: FormularioDenunciaService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    // Detectar la ruta actual al cargar el componente
     this.route.url.subscribe(() => {
       const currentPath = this.route.snapshot.firstChild?.routeConfig?.path;
       this.currentStepIndex = this.steps.findIndex(step => step.path === currentPath);
     });
+    window.addEventListener('beforeunload', this.preventExit);
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('beforeunload', this.preventExit);
+  }
+
+  preventExit = (event: BeforeUnloadEvent) => {
+    const formData = this.formularioDenunciaService.getFormDataAll();
+    if (Object.keys(formData).length > 0) { 
+      event.preventDefault();
+      event.returnValue = 'Los datos ingresados se perderán. ¿Estás seguro de salir?';
+    }
+  };
+
+  confirmExit(event: Event, url: string) {
+    event.preventDefault();
+    
+    const formData = this.formularioDenunciaService.getFormDataAll();
+    if (Object.keys(formData).length > 0) { 
+      const confirmExit = confirm('Los datos ingresados se perderán. ¿Estás seguro de salir?');
+      if (!confirmExit) return;
+    }
+    
+    this.router.navigateByUrl(url);
+    this.formularioDenunciaService.clearFormData();
   }
 
   goToPrevious() {
@@ -54,8 +90,25 @@ export class PonerDenunciaComponent {
   }
 
   goToNext() {
+    const currentComponent: any = this.getCurrentComponent();
+    
+    if (currentComponent && typeof currentComponent.getFormData === 'function') {
+      const data = currentComponent.getFormData();
+      this.formularioDenunciaService.setFormData(this.steps[this.currentStepIndex].path, data);
+    }
+
     if (this.currentStepIndex < this.steps.length - 1) {
       this.router.navigate(['/modulos/poner-denuncia', this.steps[this.currentStepIndex + 1].path]);
     }
+  }
+
+  getCurrentComponent(): any {
+    const context = this.contexts.getContext('primary');
+    return context?.outlet?.isActivated ? context.outlet.component : null;
+  }
+
+  isNextDisabled(): boolean {
+    const currentComponent: any = this.getCurrentComponent();
+    return !currentComponent || !currentComponent.isValid;
   }
 }

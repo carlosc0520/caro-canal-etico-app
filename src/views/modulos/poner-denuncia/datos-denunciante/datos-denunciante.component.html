@@ -3,10 +3,10 @@
     Datos del Denunciante
   </h2>
 
-  <form class="space-y-6">
+  <form [formGroup]="formDatosDenunciante" class="space-y-6">
     <div>
       <label class="block text-gray-700 font-medium mb-1">Relación con la empresa <span class="text-red-500">*</span></label>
-      <select formControlName="relacionEmpresa" class="w-full border p-2 rounded">
+      <select formControlName="RelacionEmpresaId" class="w-full border p-2 rounded">
         <option value="">Seleccionar *</option>
         <option *ngFor="let relacion of relaciones" [value]="relacion">{{ relacion }}</option>
       </select>
@@ -15,19 +15,20 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <label class="block text-gray-700 font-medium mb-1">Nombre</label>
-        <input formControlName="nombre" type="text" placeholder="Nombre" class="w-full border p-2 rounded">
+        <input formControlName="NombresDenunciante" type="text" placeholder="Nombre" class="w-full border p-2 rounded">
       </div>
       <div>
         <label class="block text-gray-700 font-medium mb-1">Apellidos</label>
-        <input formControlName="apellidos" type="text" placeholder="Apellidos" class="w-full border p-2 rounded">
+        <input formControlName="ApellidosDenunciante" type="text" placeholder="Apellidos" class="w-full border p-2 rounded">
+        <span>Control requerido</span>
       </div>
       <div>
         <label class="block text-gray-700 font-medium mb-1">Correo</label>
-        <input formControlName="correo" type="email" placeholder="Correo" class="w-full border p-2 rounded">
+        <input formControlName="CorreoDenunciante" type="email" placeholder="Correo" class="w-full border p-2 rounded">
       </div>
       <div>
         <label class="block text-gray-700 font-medium mb-1">Teléfono</label>
-        <input formControlName="telefono" type="tel" placeholder="Teléfono" class="w-full border p-2 rounded">
+        <input formControlName="TelefonoDenunciante" type="number" placeholder="Teléfono" class="w-full border p-2 rounded">
       </div>
     </div>
 

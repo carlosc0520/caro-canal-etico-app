@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./modulos.component.css']
 })
 export class ModulosComponent {
-
+  breadcrumb = [
+    { label: 'Inicio', url: '/inicio' },
+    { label: 'Módulos', url: '/modulos' }
+  ];
 }

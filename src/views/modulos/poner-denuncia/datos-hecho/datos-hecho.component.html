@@ -3,18 +3,18 @@
     ¿Qué hecho es el que quiere denunciar?
   </h2>
 
-  <form class="space-y-6">
+  <form [formGroup]="formDatosHecho" class="space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <label class="block text-gray-700 font-medium mb-1">Empresa <span class="text-red-500">*</span></label>
-        <select formControlName="empresa" class="w-full border p-2 rounded">
+        <select formControlName="EmpresaId" class="w-full border p-2 rounded">
           <option value="">Seleccionar *</option>
           <option *ngFor="let empresa of empresas" [value]="empresa">{{ empresa }}</option>
         </select>
       </div>
       <div>
         <label class="block text-gray-700 font-medium mb-1">Tipo de denuncia <span class="text-red-500">*</span></label>
-        <select formControlName="tipoDenuncia" class="w-full border p-2 rounded">
+        <select formControlName="TipoDenunciaId" class="w-full border p-2 rounded">
           <option value="">Seleccionar *</option>
           <option *ngFor="let tipo of tiposDenuncia" [value]="tipo">{{ tipo }}</option>
         </select>
