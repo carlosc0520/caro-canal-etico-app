@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { DatosHechoComponent } from 'src/views/modulos/poner-denuncia/datos-hecho/datos-hecho.component';
 import { DatosDenuncianteComponent } from 'src/views/modulos/poner-denuncia/datos-denunciante/datos-denunciante.component';
 import { DatosDenunciaComponent } from 'src/views/modulos/poner-denuncia/datos-denuncia/datos-denuncia.component';
+import { DatosTestigoComponent } from 'src/views/modulos/poner-denuncia/datos-testigo/datos-testigo.component';
+import { DatosArchivosComponent } from 'src/views/modulos/poner-denuncia/datos-archivos/datos-archivos.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { DatosDenunciaComponent } from 'src/views/modulos/poner-denuncia/datos-d
     PonerDenunciaComponent,
     DatosHechoComponent,
     DatosDenuncianteComponent,
-    DatosDenunciaComponent
+    DatosDenunciaComponent, 
+    DatosTestigoComponent,
+    DatosArchivosComponent
   ],
   imports: [
     BrowserModule,
