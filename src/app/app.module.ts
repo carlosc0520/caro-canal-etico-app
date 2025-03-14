@@ -15,6 +15,9 @@ import { DatosDenuncianteComponent } from 'src/views/modulos/poner-denuncia/dato
 import { DatosDenunciaComponent } from 'src/views/modulos/poner-denuncia/datos-denuncia/datos-denuncia.component';
 import { DatosTestigoComponent } from 'src/views/modulos/poner-denuncia/datos-testigo/datos-testigo.component';
 import { DatosArchivosComponent } from 'src/views/modulos/poner-denuncia/datos-archivos/datos-archivos.component';
+import { FinalizarDenunciaComponent } from 'src/views/modulos/poner-denuncia/finalizar-denuncia/finalizar-denuncia.component';
+import { AsignarContrasenaComponent } from 'src/views/modulos/poner-denuncia/asignar-contrasena/asignar-contrasena.component';
+import { LoaderComponent } from 'src/views/layout/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { DatosArchivosComponent } from 'src/views/modulos/poner-denuncia/datos-a
     DatosDenuncianteComponent,
     DatosDenunciaComponent, 
     DatosTestigoComponent,
-    DatosArchivosComponent
+    DatosArchivosComponent,
+    FinalizarDenunciaComponent,
+    AsignarContrasenaComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

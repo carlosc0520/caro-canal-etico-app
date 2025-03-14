@@ -10,11 +10,14 @@ import { FormularioDenunciaService } from 'src/resources/services/modulos/poner-
 })
 export class DatosDenunciaComponent implements OnInit {
   formDatosDenuncia: FormGroup;
+  maxDate: string;
 
   constructor(
     private formularioDenunciaService: FormularioDenunciaService,
     private route: ActivatedRoute
   ) {
+    const today = new Date();
+    this.maxDate = today.toISOString().split('T')[0];
     this.formDatosDenuncia = new FormGroup({
       FechaIncidencia: new FormControl('', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)]),
       DescripcionDenuncia: new FormControl('', Validators.required)

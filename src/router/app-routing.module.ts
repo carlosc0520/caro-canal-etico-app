@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { FormularioDenunciaGuard } from "src/guards/formulario-denuncia.guard";
 import { InicioComponent } from "src/views/inicio/inicio.component";
 import { LayoutComponent } from "src/views/layout/layout.component";
 import { ModulosComponent } from "src/views/modulos/modulos.component";
@@ -52,27 +53,33 @@ const routes: Routes = [
                     },
                     {
                         path: 'datos-denunciante',
-                        component: DatosDenuncianteComponent
+                        component: DatosDenuncianteComponent,
+                        canActivate: [FormularioDenunciaGuard]
                     },
                     {
                         path: 'datos-denuncia',
-                        component: DatosDenunciaComponent
+                        component: DatosDenunciaComponent,
+                        canActivate: [FormularioDenunciaGuard]
                     },
                     {
                         path: 'datos-testigo',
-                        component: DatosTestigoComponent
+                        component: DatosTestigoComponent,
+                        canActivate: [FormularioDenunciaGuard]
                     },
                     {
                         path: 'datos-archivos',
-                        component: DatosArchivosComponent
+                        component: DatosArchivosComponent,
+                        canActivate: [FormularioDenunciaGuard]
                     },
                     {
                         path: 'finalizar-denuncia',
-                        component: FinalizarDenunciaComponent
+                        component: FinalizarDenunciaComponent,
+                        canActivate: [FormularioDenunciaGuard]
                     },
                     {
                         path: 'asignar-contrasena',
-                        component: AsignarContrasenaComponent
+                        component: AsignarContrasenaComponent,
+                        // canActivate: [FormularioDenunciaGuard]
                     }
                 ]
             },

@@ -68,9 +68,9 @@ export class DatosArchivosComponent implements OnInit {
     }
 
     const nuevoArchivo = {
-      nombreArchivo: file.name,
-      tamano: this.formatFileSize(file.size),
-      comentarios: comentario || 'Sin comentarios'
+      nombreArchivo: file?.name,
+      tamano: this.formatFileSize(file?.size),
+      comentarios: comentario || ''
     };
 
     this.archivos.push(nuevoArchivo);
@@ -85,13 +85,14 @@ export class DatosArchivosComponent implements OnInit {
     this.archivos.splice(index, 1);
   }
 
-  private formatFileSize(size: number): string {
+  private formatFileSize(size: number | null): string | null {
+    if (!size) return '---';
     if (size < 1024) return `${size} B`;
     if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
     return `${(size / (1024 * 1024)).toFixed(1)} MB`;
   }
 
   get isValid(): boolean {
-    return this.archivos.length > 0;
+    return true;
   }
 }

@@ -1,3 +1,4 @@
+<app-loader *ngIf="loading"></app-loader>
 <section class="pt-6">
     <div class="w-11/12 sm:w-3/4 lg:pl-6 m-auto">
         <h2 class="font-bold text-xl">Poner denuncia</h2>
@@ -45,7 +46,7 @@
                     <i class="fa-solid fa-caret-left"></i>
                     Anterior
                 </button>
-                <button type="button" class="disabled:bg-orange-300 px-4 py-2 bg-orange-500 text-white rounded-xl"
+                <button type="button" class="disabled:bg-orange-300 disabled:cursor-not-allowed px-4 py-2 bg-orange-500 text-white rounded-xl"
                         (click)="goToNext()"
                         [disabled]="isNextDisabled()">
                     {{ currentStepIndex === steps.length - 1 ? 'Enviar' : 'Siguiente' }}

@@ -17,7 +17,7 @@ export class DatosDenuncianteComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.formDatosDenunciante = new FormGroup({
-      RelacionEmpresaId: new FormControl(''),
+      RelacionEmpresaId: new FormControl('', Validators.required),
       NombresDenunciante: new FormControl(''),
       ApellidosDenunciante: new FormControl(''),
       CorreoDenunciante: new FormControl(''),

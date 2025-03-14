@@ -37,6 +37,7 @@ export class PonerDenunciaComponent implements OnInit {
   ];
 
   currentStepIndex = 0;
+  loading: boolean = false;
 
   constructor(
     private route: ActivatedRoute, 
@@ -86,6 +87,7 @@ export class PonerDenunciaComponent implements OnInit {
   goToPrevious() {
     if (this.currentStepIndex > 0) {
       this.router.navigate(['/modulos/poner-denuncia', this.steps[this.currentStepIndex - 1].path]);
+    } else if(this.currentStepIndex === 0) {
     }
   }
 
@@ -93,12 +95,20 @@ export class PonerDenunciaComponent implements OnInit {
     const currentComponent: any = this.getCurrentComponent();
     
     if (currentComponent && typeof currentComponent.getFormData === 'function') {
-      const data = currentComponent.getFormData();
+      const data = currentComponent.getFormData();      
       this.formularioDenunciaService.setFormData(this.steps[this.currentStepIndex].path, data);
     }
 
     if (this.currentStepIndex < this.steps.length - 1) {
       this.router.navigate(['/modulos/poner-denuncia', this.steps[this.currentStepIndex + 1].path]);
+    } else {
+      this.loading = true;
+      // aqui llamamos al api para enviar los datos
+      this.formularioDenunciaService.clearFormData();
+      setTimeout(() => {
+        this.loading = false;
+        this.router.navigate(['/modulos/poner-denuncia/datos-hecho']);
+      }, 2000);
     }
   }
 

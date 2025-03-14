@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioDenunciaService } from 'src/resources/services/modulos/poner-denuncia/formulario-denuncia.service';
 
@@ -17,12 +17,13 @@ export class DatosTestigoComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.formDatosTestigo = new FormGroup({
-      NombreTestigo: new FormControl('', [Validators.required]),
-      ApellidosTestigo: new FormControl('', [Validators.required]),
-      CorreoTestigo: new FormControl('', [Validators.required, Validators.email]),
-      TelefonoTestigo: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]),
-      ComentariosTestigo: new FormControl('', [Validators.maxLength(4000)])
-    });
+      NombreTestigo: new FormControl(''),
+      ApellidosTestigo: new FormControl(''),
+      CorreoTestigo: new FormControl('', Validators.email),
+      TelefonoTestigo: new FormControl('', Validators.pattern(/^\d{9}$/)),
+      ComentariosTestigo: new FormControl('', Validators.maxLength(4000))
+    },
+    { validators: this.alMenosUnCampoLleno });
   }
 
   ngOnInit() {
@@ -43,6 +44,13 @@ export class DatosTestigoComponent implements OnInit {
       this.testigos = data.testigos;
     }
   }
+
+  alMenosUnCampoLleno(group: AbstractControl): ValidationErrors | null {
+    const controls = group.value;
+    const tieneDatos = Object.values(controls).some(value => value && value.toString().trim() !== '');
+  
+    return tieneDatos ? null : { alMenosUnCampo: true };
+  }  
 
   agregarTestigo() {
     if (this.formDatosTestigo.valid) {
