@@ -8,6 +8,7 @@ import { SectionScrollService } from 'src/resources/services/inicio/section-scro
 })
 export class MainHeaderComponent implements OnInit {
   activeSection: string | null = null;
+  menuOpen = false;
 
   constructor(private sectionScrollService: SectionScrollService) {}
 
@@ -19,5 +20,10 @@ export class MainHeaderComponent implements OnInit {
 
   navigateTo(sectionId: string) {
     this.sectionScrollService.scrollToSection(sectionId);
+    this.menuOpen = false;
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 }
