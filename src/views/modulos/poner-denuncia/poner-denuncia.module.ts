@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { PonerDenunciaComponent } from "./poner-denuncia.component";
-import { PonerDenunciaRoutingModule } from "./poner-denuncia-routing.module";
+// import { PonerDenunciaRoutingModule } from "./poner-denuncia-routing.module";
 
 @NgModule({
     declarations: [
@@ -9,7 +9,7 @@ import { PonerDenunciaRoutingModule } from "./poner-denuncia-routing.module";
     ],
     imports: [
         CommonModule,
-        PonerDenunciaRoutingModule,
+        // PonerDenunciaRoutingModule,
     ]
 })
 export class PonerDenunciaModule {};
