@@ -22,10 +22,10 @@ export class NotyfService {
         this.notyf.error(message);
     }
 
-    swalSuccess(mensaje: string, event: any) {
+    swalSuccess(mensaje: string, code: string | null, event: any) {
         Swal.fire({
             title: 'Éxito',
-            text: mensaje,
+            html: `<span>${mensaje}</span><br/><b>${code}</b>`,
             icon: 'success',
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#3085d6',

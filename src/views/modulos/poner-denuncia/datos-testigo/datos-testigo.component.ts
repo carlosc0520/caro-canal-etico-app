@@ -72,6 +72,6 @@ export class DatosTestigoComponent implements OnInit {
   }
 
   get isValid(): boolean {
-    return this.testigos.length > 0;
+    return true;
   }
 }

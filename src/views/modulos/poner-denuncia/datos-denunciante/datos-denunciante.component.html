@@ -22,12 +22,28 @@
         <input formControlName="ApellidosDenunciante" type="text" placeholder="Apellidos" class="w-full border p-2 rounded outline-none">
       </div>
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Correo</label>
-        <input formControlName="CorreoDenunciante" type="email" placeholder="Correo" class="w-full border p-2 rounded outline-none">
+        <label class="block text-gray-700 font-medium mb-1">Correo <span *ngIf="formDatosDenunciante.get('CorreoDenunciante')?.invalid && formDatosDenunciante.get('CorreoDenunciante')?.dirty" class="text-red-500">*</span></label>
+        <input 
+          formControlName="CorreoDenunciante" 
+          type="email" 
+          placeholder="Correo" 
+          class="w-full border p-2 rounded outline-none"
+          [ngClass]="{ 'border-red-500': formDatosDenunciante.get('CorreoDenunciante')?.invalid && formDatosDenunciante.get('CorreoDenunciante')?.dirty }">
+        <p class="text-red-500 text-sm" *ngIf="formDatosDenunciante.get('CorreoDenunciante')?.invalid && formDatosDenunciante.get('CorreoDenunciante')?.dirty">
+          El correo no es válido.
+        </p>
       </div>
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Teléfono</label>
-        <input formControlName="TelefonoDenunciante" type="number" placeholder="Teléfono" class="w-full border p-2 rounded outline-none">
+        <label class="block text-gray-700 font-medium mb-1">Teléfono <span *ngIf="formDatosDenunciante.get('TelefonoDenunciante')?.invalid && formDatosDenunciante.get('TelefonoDenunciante')?.dirty" class="text-red-500">*</span></label>
+        <input 
+          formControlName="TelefonoDenunciante" 
+          type="number" 
+          placeholder="Teléfono" 
+          class="w-full border p-2 rounded outline-none"
+          [ngClass]="{ 'border-red-500': formDatosDenunciante.get('TelefonoDenunciante')?.invalid && formDatosDenunciante.get('TelefonoDenunciante')?.dirty }">
+        <p class="text-red-500 text-sm" *ngIf="formDatosDenunciante.get('TelefonoDenunciante')?.invalid && formDatosDenunciante.get('TelefonoDenunciante')?.dirty">
+          El teléfono debe tener 9 dígitos numéricos.
+        </p>
       </div>
     </div>
 

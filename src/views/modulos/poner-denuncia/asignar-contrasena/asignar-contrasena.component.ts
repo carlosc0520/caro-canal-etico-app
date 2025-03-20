@@ -13,6 +13,7 @@ export class AsignarContrasenaComponent implements OnInit {
   formAsignarContrasena: FormGroup;
   showPassword = false;
   showRepeatPassword = false;
+  correoDenunciante: boolean = false;
 
   constructor(
     private formularioDenunciaService: FormularioDenunciaService,
@@ -22,7 +23,7 @@ export class AsignarContrasenaComponent implements OnInit {
     this.formAsignarContrasena = new FormGroup({
       Contrasena: new FormControl('', [Validators.required, this.passwordValidator]),
       RepetirContrasena: new FormControl('', [Validators.required]),
-      Correo: new FormControl('', [Validators.required, Validators.email, this.validatorsService.emailFormatValidator])
+      Correo: new FormControl('')
     }, { validators: this.passwordsMatchValidator });
   }
 
@@ -39,6 +40,16 @@ export class AsignarContrasenaComponent implements OnInit {
           this.setFormData(data);
         }
       });
+    }
+
+    const datosDenunciante = this.formularioDenunciaService.getFormData('datos-denunciante');
+    this.correoDenunciante = Boolean(datosDenunciante?.CorreoDenunciante);
+    console.log(datosDenunciante);
+    console.log(this.correoDenunciante);
+
+    if (!this.correoDenunciante) {
+      this.formAsignarContrasena.get('Correo')?.setValidators([Validators.required, Validators.email, this.validatorsService.emailFormatValidator]);
+      this.formAsignarContrasena.get('Correo')?.updateValueAndValidity();
     }
   }
 

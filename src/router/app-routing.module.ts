@@ -79,7 +79,7 @@ const routes: Routes = [
                     {
                         path: 'asignar-contrasena',
                         component: AsignarContrasenaComponent,
-                        // canActivate: [FormularioDenunciaGuard]
+                        canActivate: [FormularioDenunciaGuard]
                     }
                 ]
             },

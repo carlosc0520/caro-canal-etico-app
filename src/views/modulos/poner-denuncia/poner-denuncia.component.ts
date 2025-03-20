@@ -150,8 +150,7 @@ export class PonerDenunciaComponent implements OnInit {
           this.loading = false;
           if (response?.success) {
             this.formularioDenunciaService.clearFormData();
-            this.notyf.swalSuccess(`Denuncia registrada correctamente\n
-                ${response.codigo}`, () => {
+            this.notyf.swalSuccess('Denuncia registrada correctamente', response?.codigo, () => {
               this.router.navigate(['/modulos']);
             });
 

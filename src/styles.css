@@ -12,3 +12,8 @@ body {
 .shadow-beautiful {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
+.swal2-confirm {
+    background-color: #ED6A23 !important;
+    color: white !important;
+}
