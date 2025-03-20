@@ -70,7 +70,9 @@ export class DatosArchivosComponent implements OnInit {
     const nuevoArchivo = {
       nombreArchivo: file?.name,
       tamano: this.formatFileSize(file?.size),
-      comentarios: comentario || ''
+      size: file?.size,
+      comentarios: comentario || '',
+      file: file,
     };
 
     this.archivos.push(nuevoArchivo);

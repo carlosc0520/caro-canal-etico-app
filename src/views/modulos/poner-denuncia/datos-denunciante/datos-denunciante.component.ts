@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { RelacionEmpresaModel } from 'src/resources/models/RelacionEmpresa.model';
 import { FormularioDenunciaService } from 'src/resources/services/modulos/poner-denuncia/formulario-denuncia.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { FormularioDenunciaService } from 'src/resources/services/modulos/poner-
 })
 export class DatosDenuncianteComponent implements OnInit {
   formDatosDenunciante: FormGroup;
-  relaciones: any[] = ['Relacion 1', 'Relacion 2', 'Relacion 3'];
+  relaciones: RelacionEmpresaModel[] = [];
 
   constructor(
     private formularioDenunciaService: FormularioDenunciaService,
@@ -32,7 +33,17 @@ export class DatosDenuncianteComponent implements OnInit {
     if (savedData) {
       this.formDatosDenunciante.patchValue(savedData);
     }
+
+    this.getRelacionEmpresa();
   }
+
+  getRelacionEmpresa() {
+    this.formularioDenunciaService.getRelacionEmpresa().subscribe((response: RelacionEmpresaModel[]) => {
+      console.log(response);
+      this.relaciones = response;
+    });
+  }
+
 
   getFormData() {
     return this.formDatosDenunciante.value;

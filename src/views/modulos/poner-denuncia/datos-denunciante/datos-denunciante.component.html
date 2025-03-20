@@ -8,7 +8,7 @@
       <label class="block text-gray-700 font-medium mb-1">Relación con la empresa <span class="text-red-500">*</span></label>
       <select formControlName="RelacionEmpresaId" class="w-full border p-2 rounded outline-none">
         <option value="">Seleccionar *</option>
-        <option *ngFor="let relacion of relaciones" [value]="relacion">{{ relacion }}</option>
+        <option *ngFor="let relacion of relaciones" [value]="relacion.id">{{ relacion.descp }}</option>
       </select>
     </div>
 

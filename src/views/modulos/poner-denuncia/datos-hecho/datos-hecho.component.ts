@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ReceptorModel } from 'src/resources/models/Receptor.model';
+import { TipoDenunciaModel } from 'src/resources/models/TipoDenuncia.model';
 import { FormularioDenunciaService } from 'src/resources/services/modulos/poner-denuncia/formulario-denuncia.service';
 
 @Component({
@@ -10,16 +12,26 @@ import { FormularioDenunciaService } from 'src/resources/services/modulos/poner-
 })
 export class DatosHechoComponent {
   formDatosHecho: FormGroup;
-  empresas: any[] = ['Empresa 1', 'Empresa 2', 'Empresa 3'];
-  tiposDenuncia: any[] = ['Tipo 1', 'Tipo 2', 'Tipo 3'];
+  empresas: any[] = [
+    {
+      id: 1,
+      mrca: 'CARO&ASOCIADOS SAC'
+    }
+  ];
+  tiposDenuncia: TipoDenunciaModel[] = [];
+  receptores: ReceptorModel[] = [];
+  receptorPrincipal: ReceptorModel = {} as ReceptorModel;
+  isNotReceptorPrincipal: boolean = false;
+
 
   constructor(
     private formularioDenunciaService: FormularioDenunciaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.formDatosHecho = new FormGroup({
       EmpresaId: new FormControl('', Validators.required),
-      TipoDenunciaId: new FormControl('', Validators.required)
+      TipoDenunciaId: new FormControl('', Validators.required),
+      ReceptorId: new FormControl('', Validators.required),
     });
   }
 
@@ -31,6 +43,9 @@ export class DatosHechoComponent {
     if (savedData) {
       this.formDatosHecho.patchValue(savedData);
     }
+
+    this.getTiposDenuncia();
+    this.getReceptores();
   }
 
   getFormData() {
@@ -40,6 +55,38 @@ export class DatosHechoComponent {
   setFormData(data: any) {
     if (data) {
       this.formDatosHecho.patchValue(data);
+    }
+  }
+
+  getTiposDenuncia() {
+    this.formularioDenunciaService.getTipoDenuncia().subscribe((response: TipoDenunciaModel[]) => {
+      this.tiposDenuncia = response;
+    });
+  }
+
+  getReceptores() {
+    this.formularioDenunciaService.getReceptores().subscribe((response: ReceptorModel[]) => {
+      this.receptores = response;
+      this.receptorPrincipal = this.receptores.find((receptor: ReceptorModel) => receptor.principal === true) || {} as ReceptorModel;
+      this.isNotReceptorPrincipal = this.receptorPrincipal ? false : true;
+      if (this.receptorPrincipal) {
+        this.formDatosHecho.get('ReceptorId')?.setValue(this.receptorPrincipal.id);
+      }
+    });
+  }
+
+  // * METODOS
+  proponerOtroReceptor() {
+    this.formDatosHecho.get('ReceptorId')?.setValue(null);
+    this.receptorPrincipal = {} as ReceptorModel;
+    this.isNotReceptorPrincipal = true;
+  }
+
+  onReceptorChange(event: any) {
+    const selectedReceptor = this.receptores.find((receptor: ReceptorModel) => receptor.id == this.formDatosHecho.get('ReceptorId')?.value);
+    if (selectedReceptor) {
+      this.isNotReceptorPrincipal = selectedReceptor.principal ? false : true;
+      this.receptorPrincipal = selectedReceptor;
     }
   }
 
