@@ -15,14 +15,18 @@ export class VisualizarDenunciaComponent implements OnInit {
   ];
 
   formLogin: FormGroup;
+  isDenunciaOk: boolean = false;
+  denuncia: any = false;
+  showPassword: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private denunciaService: DenunciaService,
     private notyf: NotyfService
   ) {
     this.formLogin = new FormGroup({
-      CODIGO: new FormControl('', [Validators.required]),
-      CONTRASENA: new FormControl('', [Validators.required]),
+      CODIGO: new FormControl('DENUNCIA_36', [Validators.required]),
+      CONTRASENA: new FormControl('12345cC.', [Validators.required]),
     });
   }
 
@@ -39,26 +43,48 @@ export class VisualizarDenunciaComponent implements OnInit {
     formData.append('CODIGO', this.formLogin.value.CODIGO);
     formData.append('CONTRASENA', this.formLogin.value.CONTRASENA);
 
+    this.loading = true;
     this.denunciaService.onValidateDenuncia(formData).subscribe(
       (response: any) => {
         if (response.success) {
           this.denunciaService.obtenerDenuncia(response.id).subscribe(
             (denunciaResponse: any) => {
+              this.loading = false;
               if (denunciaResponse.success) {
-               
+                this.isDenunciaOk = true;
+                this.denuncia = denunciaResponse.data;
+                this.denuncia.gddenuncia = denunciaResponse.data.gddenuncia == '1' ? 10
+                  : denunciaResponse.data.gddenuncia == '2' ? 25
+                    : denunciaResponse.data.gddenuncia == '3' ? 40
+                      : denunciaResponse.data.gddenuncia == '4' ? 55
+                        : denunciaResponse.data.gddenuncia == '5' ? 70
+                          : denunciaResponse.data.gddenuncia == '6' ? 100
+                                  : 100;
+                console.log(denunciaResponse.data);
+                this.notyf.success('Mostrando denuncia con éxito');
               } else {
                 this.notyf.error(denunciaResponse.message || 'Error al obtener la denuncia: ' + denunciaResponse.message);
               }
             }
           );
         } else {
+          this.loading = false;
           this.notyf.error('Error al validar la denuncia: ' + response.message);
         }
       },
       (error: any) => {
+        this.loading = false;
         this.notyf.error('Error en la conexión con el servidor: ' + error.message);
       }
     );
+  }
+  
+  logout() {
+    this.denuncia = {} as any;
+    this.isDenunciaOk = false;
+    this.formLogin.reset();
+    this.formLogin.get('CODIGO')?.setValue('DENUNCIA_36');
+    this.formLogin.get('CONTRASENA')?.setValue('12345cC.');
   }
 
   get isValid(): boolean {
