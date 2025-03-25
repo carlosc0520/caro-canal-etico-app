@@ -13,6 +13,7 @@ import { DatosTestigoComponent } from "src/views/modulos/poner-denuncia/datos-te
 import { FinalizarDenunciaComponent } from "src/views/modulos/poner-denuncia/finalizar-denuncia/finalizar-denuncia.component";
 import { PonerDenunciaComponent } from "src/views/modulos/poner-denuncia/poner-denuncia.component";
 import { VisualizarDenunciaComponent } from "src/views/modulos/visualizar-denuncia/visualizar-denuncia.component";
+import { PanelComponent } from "src/views/panel/panel.component";
 
 const routes: Routes = [
     { 
@@ -88,6 +89,10 @@ const routes: Routes = [
                 component: VisualizarDenunciaComponent
             }
         ]
+    },
+    {
+        path: 'panel',
+        loadChildren: () => import('../views/panel/panel.module').then(m => m.PanelModule)
     },
     {
         path: '**',

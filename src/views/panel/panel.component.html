@@ -1,0 +1,17 @@
+<div class="flex h-screen">
+  <div [ngClass]="{'w-64': isSidebarOpen, 'w-16': !isSidebarOpen}" class="bg-gray-900 text-white flex flex-col transition-all">
+    <button (click)="toggleSidebar()" class="p-4">☰</button>
+    <nav>
+      <ul>
+        <li><a routerLink="/dashboard/dashboard" class="block p-4 hover:bg-gray-700">Dashboard</a></li>
+        <li><a routerLink="/dashboard/mis-denuncias" class="block p-4 hover:bg-gray-700">Mis denuncias</a></li>
+        <li><a routerLink="/dashboard/todas-las-denuncias" class="block p-4 hover:bg-gray-700">Todas las denuncias</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <div class="flex-1 p-6">
+    <h1 class="text-xl font-bold">{{ currentTitle }}</h1>
+    <router-outlet></router-outlet>
+  </div>
+</div>

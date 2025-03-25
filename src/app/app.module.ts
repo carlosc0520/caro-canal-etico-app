@@ -20,6 +20,7 @@ import { FinalizarDenunciaComponent } from 'src/views/modulos/poner-denuncia/fin
 import { AsignarContrasenaComponent } from 'src/views/modulos/poner-denuncia/asignar-contrasena/asignar-contrasena.component';
 import { LoaderComponent } from 'src/views/layout/loader/loader.component';
 import { VisualizarDenunciaComponent } from 'src/views/modulos/visualizar-denuncia/visualizar-denuncia.component';
+import { PanelModule } from 'src/views/panel/panel.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { VisualizarDenunciaComponent } from 'src/views/modulos/visualizar-denunc
     LayoutModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
