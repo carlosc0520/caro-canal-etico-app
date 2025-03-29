@@ -21,6 +21,7 @@ import { AsignarContrasenaComponent } from 'src/views/modulos/poner-denuncia/asi
 import { LoaderComponent } from 'src/views/layout/loader/loader.component';
 import { VisualizarDenunciaComponent } from 'src/views/modulos/visualizar-denuncia/visualizar-denuncia.component';
 import { PanelModule } from 'src/views/panel/panel.module';
+import { IniciarSesionComponent } from 'src/views/iniciar-sesion/iniciar-sesion.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PanelModule } from 'src/views/panel/panel.module';
     DatosArchivosComponent,
     FinalizarDenunciaComponent,
     AsignarContrasenaComponent,
-    LoaderComponent
+    LoaderComponent,
+    IniciarSesionComponent
   ],
   imports: [
     BrowserModule,

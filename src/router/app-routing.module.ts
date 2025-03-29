@@ -1,6 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "src/guards/auth.guard";
 import { FormularioDenunciaGuard } from "src/guards/formulario-denuncia.guard";
+import { LoginGuard } from "src/guards/login.guard";
+import { IniciarSesionComponent } from "src/views/iniciar-sesion/iniciar-sesion.component";
 import { InicioComponent } from "src/views/inicio/inicio.component";
 import { LayoutComponent } from "src/views/layout/layout.component";
 import { ModulosComponent } from "src/views/modulos/modulos.component";
@@ -92,7 +95,14 @@ const routes: Routes = [
     },
     {
         path: 'panel',
-        loadChildren: () => import('../views/panel/panel.module').then(m => m.PanelModule)
+        loadChildren: () => import('../views/panel/panel.module').then(m => m.PanelModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'iniciar-sesion',
+        component: IniciarSesionComponent,
+        data: { animation: 'slideIn' },
+        canActivate: [LoginGuard]
     },
     {
         path: '**',

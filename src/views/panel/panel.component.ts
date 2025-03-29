@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from 'src/resources/services/auth.service';
 
 @Component({
   selector: 'app-panel',
@@ -8,7 +9,7 @@ import { filter } from 'rxjs';
   styleUrls: ['./panel.component.css']
 })
 export class PanelComponent {
-  isSidebarOpen = true;
+  isSidebarOpen = false;
   currentTitle = 'Dashboard';
 
   private titles: { [key: string]: string  } = {
@@ -17,7 +18,10 @@ export class PanelComponent {
     'todas-las-denuncias': 'Todas las denuncias'
   };
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute,
+    private authService: AuthService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -28,5 +32,10 @@ export class PanelComponent {
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  cerrarSesion() {
+    this.authService.logout();
+    this.router.navigate(['/iniciar-sesion']);
   }
 }

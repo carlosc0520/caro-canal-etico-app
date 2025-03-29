@@ -12,6 +12,14 @@ const routes: Routes = [
       { 
         path: 'dashboard',
         loadChildren: () => import('../panel/dashboard/dashboard.module').then(m => m.DashboardModule) 
+      },
+      { 
+        path: 'mis-denuncias',
+        loadChildren: () => import('../panel/mis-denuncias/mis-denuncias.module').then(m => m.MisDenunciasModule) 
+      },
+      { 
+        path: 'todas-las-denuncias',
+        loadChildren: () => import('../panel/todas-las-denuncias/todas-las-denuncias.module').then(m => m.TodasLasDenunciasModule) 
       }
     ]
   }

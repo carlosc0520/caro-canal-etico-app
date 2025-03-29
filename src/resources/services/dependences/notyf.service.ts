@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
     providedIn: 'root'
 })
 export class NotyfService {
+    private isAlertShown = false;
     private notyf = new Notyf({
         duration: 2000,
         position: { x: 'right', y: 'top' },
@@ -19,7 +20,13 @@ export class NotyfService {
     }
 
     error(message: string) {
-        this.notyf.error(message);
+        if (!this.isAlertShown) {
+            this.isAlertShown = true;
+            this.notyf.error(message);
+            setTimeout(() => {
+                this.isAlertShown = false;
+            }, 2000);
+        }
     }
 
     swalSuccess(mensaje: string, code: string | null, event: any) {
