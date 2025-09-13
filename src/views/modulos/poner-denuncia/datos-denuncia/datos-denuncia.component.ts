@@ -58,7 +58,6 @@ export class DatosDenunciaComponent implements OnInit {
       };
 
       this.recognition.onerror = (event: any) => {
-        console.error('Error en el reconocimiento de voz:', event.error);
         this.stopRecording();
       };
     } else {

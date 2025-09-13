@@ -13,6 +13,7 @@ import { DatosDenunciaComponent } from "src/views/modulos/poner-denuncia/datos-d
 import { DatosDenuncianteComponent } from "src/views/modulos/poner-denuncia/datos-denunciante/datos-denunciante.component";
 import { DatosHechoComponent } from "src/views/modulos/poner-denuncia/datos-hecho/datos-hecho.component";
 import { DatosTestigoComponent } from "src/views/modulos/poner-denuncia/datos-testigo/datos-testigo.component";
+import { DatosResolver } from "src/views/modulos/poner-denuncia/DatosResolver.componente";
 import { FinalizarDenunciaComponent } from "src/views/modulos/poner-denuncia/finalizar-denuncia/finalizar-denuncia.component";
 import { PonerDenunciaComponent } from "src/views/modulos/poner-denuncia/poner-denuncia.component";
 import { VisualizarDenunciaComponent } from "src/views/modulos/visualizar-denuncia/visualizar-denuncia.component";
@@ -45,6 +46,7 @@ const routes: Routes = [
             {
                 path: 'poner-denuncia',
                 component: PonerDenunciaComponent,  
+                resolve: { datos: DatosResolver },
                 children: [
                     {
                         path: '',

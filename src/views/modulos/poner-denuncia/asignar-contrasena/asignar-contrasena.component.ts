@@ -44,13 +44,11 @@ export class AsignarContrasenaComponent implements OnInit {
 
     const datosDenunciante = this.formularioDenunciaService.getFormData('datos-denunciante');
     this.correoDenunciante = Boolean(datosDenunciante?.CorreoDenunciante);
-    console.log(datosDenunciante);
-    console.log(this.correoDenunciante);
 
-    if (!this.correoDenunciante) {
-      this.formAsignarContrasena.get('Correo')?.setValidators([Validators.required, Validators.email, this.validatorsService.emailFormatValidator]);
-      this.formAsignarContrasena.get('Correo')?.updateValueAndValidity();
-    }
+    // if (!this.correoDenunciante) {
+    //   this.formAsignarContrasena.get('Correo')?.setValidators([Validators.required, Validators.email, this.validatorsService.emailFormatValidator]);
+    //   this.formAsignarContrasena.get('Correo')?.updateValueAndValidity();
+    // }
   }
 
   getFormData() {

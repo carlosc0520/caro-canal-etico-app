@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 import config from 'src/resources/endpoints';
 import { TipoDenunciaModel } from 'src/resources/models/TipoDenuncia.model';
 import { ReceptorModel } from 'src/resources/models/Receptor.model';
@@ -15,6 +15,7 @@ export class FormularioDenunciaService {
 
   private TipoDenunciaUrl: TipoDenunciaModel[] = [];
   private ReceptorUrl: ReceptorModel[] = [];
+  private RelacionEmpresaUrl: RelacionEmpresaModel[] = [];
 
   private formData: { [key: string]: any } = {};
 
@@ -36,43 +37,65 @@ export class FormularioDenunciaService {
 
 
   // GET
-  getTipoDenuncia(): Observable<TipoDenunciaModel[]> {
-    return this.http.get<TipoDenunciaModel[]>(`${this.apiUrl}=TipoDenuncia&IDEMPRESA=${config.IDEMPRESA}&TIPO=1&CESTDO=A&start=0&length=1000`)
+  getFinData(): Observable<any> {
+    const receptores$ = this.http.get<ReceptorModel[]>(`${this.apiUrl}=Receptor&IDEMPRESA=${config.IDEMPRESA}&CESTDO=A&start=0&length=1000`)
       .pipe(
         map((response: any) => {
-          if (response?.data && response.data.length === 0) {
-            return [];
-          }
-
-          return response.data;
+          const data = response?.data?.length ? response.data : [];
+          this.setReceptorUrl(data);
+          return data;
         })
       );
+  
+    const tipoDenuncia$ = this.http.get<TipoDenunciaModel[]>(`${this.apiUrl}=TipoDenuncia&IDEMPRESA=${config.IDEMPRESA}&TIPO=1&CESTDO=A&start=0&length=1000`)
+      .pipe(
+        map((response: any) => {
+          const data = response?.data?.length ? response.data : [];
+          this.setTipoDenunciaUrl(data);
+          return data;
+        })
+      );
+
+    const relacionEmpresa$ = this.http.get<RelacionEmpresaModel[]>(`${this.apiUrl}=TipoDenuncia&IDEMPRESA=${config.IDEMPRESA}&TIPO=2&CESTDO=A&start=0&length=1000`)
+      .pipe(
+        map((response: any) => {
+          const data = response?.data?.length ? response.data : [];
+          this.setRelacionEmpresaUrl(data);
+          return data;
+        })
+      );
+  
+    return forkJoin([receptores$, tipoDenuncia$, relacionEmpresa$]);
+  }
+  
+
+
+  getReceptorUrl(cadena: string): ReceptorModel[] {
+    if(cadena) {
+      return this.ReceptorUrl.filter((rec: any) => rec["didrol"] == cadena);
+    }
+    return this.ReceptorUrl;
   }
 
-  getRelacionEmpresa(): Observable<RelacionEmpresaModel[]> {
-    return this.http.get<RelacionEmpresaModel[]>(`${this.apiUrl}=TipoDenuncia&IDEMPRESA=${config.IDEMPRESA}&TIPO=2&CESTDO=A&start=0&length=1000`)
-      .pipe(
-        map((response: any) => {
-          if (response?.data && response.data.length === 0) {
-            return [];
-          }
-
-          return response.data;
-        })
-      );
+  setReceptorUrl(receptorUrl: ReceptorModel[]) {
+    this.ReceptorUrl = receptorUrl;
   }
 
-  getReceptores(): Observable<ReceptorModel[]> {
-    return this.http.get<ReceptorModel[]>(`${this.apiUrl}=Receptor&IDEMPRESA=${config.IDEMPRESA}&CESTDO=A&start=0&length=1000`)
-      .pipe(
-        map((response: any) => {
-          if (response?.data && response.data.length === 0) {
-            return [];
-          }
+  getTipoDenunciaUrl(): TipoDenunciaModel[] {
+    return this.TipoDenunciaUrl;
+  }
 
-          return response.data;
-        })
-      );
+  setTipoDenunciaUrl(tipoDenunciaUrl: TipoDenunciaModel[]) {
+    this.TipoDenunciaUrl = tipoDenunciaUrl;
+  }
+
+
+  getRelacionEmpresaUrl(): RelacionEmpresaModel[] {
+    return this.RelacionEmpresaUrl;
+  }
+
+  setRelacionEmpresaUrl(relacionEmpresaUrl: RelacionEmpresaModel[]) {
+    this.RelacionEmpresaUrl = relacionEmpresaUrl;
   }
 
   setFormData(step: string, data: any) {

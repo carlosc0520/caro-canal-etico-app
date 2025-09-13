@@ -106,7 +106,11 @@ export class PonerDenunciaComponent implements OnInit {
     if (this.currentStepIndex < this.steps.length - 1) {
       this.router.navigate(['/modulos/poner-denuncia', this.steps[this.currentStepIndex + 1].path]);
     } else {
+
       const formData = this.formularioDenunciaService.getFormDataAll();
+      console.log(formData)
+      return
+      
       let fData: FormData = new FormData();
       fData.append('IDEMPRESA', config.IDEMPRESA.toString());
       fData.append('IDTPODENUNCIA', formData["datos-hecho"].TipoDenunciaId);

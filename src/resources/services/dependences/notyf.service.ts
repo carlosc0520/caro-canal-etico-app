@@ -43,5 +43,88 @@ export class NotyfService {
         });
     }
 
+    swalDeleteConfirm(event: any, title: string = '¿Está seguro de cambiar el estado del registro?') {
+        Swal.fire({
+            title: title,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cambiar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            preConfirm: () => {
+                event();
+            }
+        });
+    }
+
+
+    // SWAL CON INPUT COMENTARIO
+    swalInputComentario(
+        title: string = '¿Está seguro de cambiar el estado del registro?',
+        placeholder: string = 'Escribe un comentario...',
+        callback: (inputValue: string) => void
+    ) {
+        Swal.fire({
+            title: title,
+            input: 'textarea',
+            inputPlaceholder: placeholder,
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cambiar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Por favor, escribe un comentario.';
+                }
+                return null;
+            },
+            preConfirm: (inputValue) => {
+                return inputValue;
+            }
+        }).then((result) => {
+            if (result.isConfirmed && result.value) {
+                callback(result.value); // Llama al callback con el valor del input
+            }
+        });
+    }
+    
+
+    // INPUT SELECT + TEXTO HTML
+    swalInputSelect(
+        title: string = '¿Está seguro de cambiar el estado del registro?',
+        html: string,
+        data: any[],
+        callback: (inputValue: string) => void
+    ) {
+        Swal.fire({
+            title: title,
+            html: html,
+            input: 'select',
+            inputOptions: data.reduce((acc, item) => {
+                acc[item.value] = item.label;
+                return acc;
+            }, {}),
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cambiar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Por favor, selecciona una opción.';
+                }
+                return null;
+            },
+            preConfirm: (inputValue) => {
+                return inputValue;
+            }
+        }).then((result) => {
+            if (result.isConfirmed && result.value) {
+                callback(result.value); // Llama al callback con el valor del input
+            }
+        });
+    }
 
 }

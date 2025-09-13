@@ -57,17 +57,18 @@
     </div>
   
     <div class="mb-4" *ngIf="!correoDenunciante">
-      <label class="block text-gray-700 font-medium mb-1">Correo <span class="text-red-500">*</span></label>
+      <label class="block text-gray-700 font-medium mb-1">Correo </label>
       <input 
         type="email" 
         formControlName="Correo" 
         placeholder="Correo" 
         class="w-full border p-2 rounded outline-none"
-        [ngClass]="{ 'border-red-500': formAsignarContrasena.controls['Correo'].invalid && formAsignarContrasena.controls['Correo'].dirty }">
-      <small *ngIf="formAsignarContrasena.controls['Correo'].invalid && formAsignarContrasena.controls['Correo'].dirty" class="text-red-500">
-        El correo no es válido.
-      </small>
-    </div>
+        >
+        <!-- <small *ngIf="formAsignarContrasena.controls['Correo'].invalid && formAsignarContrasena.controls['Correo'].dirty" class="text-red-500">
+        [ngClass]="{ 'border-red-500': formAsignarContrasena.controls['Correo'].invalid && formAsignarContrasena.controls['Correo'].dirty }"
+          El correo no es válido.
+        </small> -->
+      </div>
 
     <p class="text-gray-600 text-sm mb-4" *ngIf="!correoDenunciante">
       Hemos detectado que no has proporcionado un correo electrónico. Se puede proporcionar de manera opcional un e-mail que permitirá recuperar la contraseña en caso de pérdida para poder acceder al contenido de la comunicación.

@@ -38,14 +38,18 @@ export class IniciarSesionComponent implements OnInit {
     }
 
     const { Correo, Contrasena } = this.loginForm.value;
+    const formData = new FormData();
+    formData.append('CORREO', Correo);
+    formData.append('PASSWORD', Contrasena);
 
-    this.authService.login(Correo, Contrasena).subscribe(
+    this.authService.login(formData).subscribe(
       (response) => {
+        if(!response.success) return this.notyf.error(response.error);
         this.router.navigate(['/panel']);
         this.notyf.success('Inicio de sesión exitoso.');
       },
       (error) => {
-        this.notyf.error(error);
+        this.notyf.error(error.error?.message || 'Error de conexión');
       }
     );
   }

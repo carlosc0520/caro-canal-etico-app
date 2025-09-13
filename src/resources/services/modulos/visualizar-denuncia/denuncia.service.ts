@@ -29,7 +29,7 @@ export class DenunciaService {
             'XSRF-TOKEN': config.TOKEN,
         });
 
-        return this.http.get(`${this.apiUrl}=Denuncias&ID=${id}&start=0&length=1&IDEMPRESA=${config.IDEMPRESA}`, { headers })
+        return this.http.get(`${this.apiUrl}=DenunciasFind&ID=${id}&start=0&length=1&IDEMPRESA=${config.IDEMPRESA}`, { headers })
             .pipe(
                 map((response: any) => {
                     return response;

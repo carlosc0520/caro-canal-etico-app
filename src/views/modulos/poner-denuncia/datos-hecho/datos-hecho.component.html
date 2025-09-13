@@ -21,8 +21,9 @@
       </div>
     </div>
     <p class="text-gray-700 text-sm">
-      Situación donde los intereses de negocios, financieros, familiares, políticos o personas podrían interferir con el
-      juicio de valor del personal en el desempeño de sus obligaciones hacia la organización.
+        {{
+          getDetalleTipoDenuncia()
+        }}
     </p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
       <div>
@@ -49,7 +50,7 @@
     </div>
 
     <!-- // select  -->
-    <div *ngIf="isNotReceptorPrincipal" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+    <div *ngIf="getIsNotReceptorPrincipal()" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
       <div>
         <label class="block text-gray-700 font-medium mb-1">Receptor propuesto</label>
         <select formControlName="ReceptorId" 

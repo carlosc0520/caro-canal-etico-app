@@ -4,7 +4,7 @@
             <!-- Logo -->
             <div class="flex items-center">
                 <a href="https://ccfirma.com/" target="_blank" class="flex items-center">
-                    <img src="../../../assets/img/logo-caro-asociados-letters-white.png" class="h-9" alt="Logo" />
+                    <img src="../../../assets/img/logo-caro-asociados-letters-white.png" class="h-12" alt="Logo" />
                 </a>
             </div>
 
@@ -15,31 +15,31 @@
 
             <!-- Menú de navegación -->
             <nav [ngClass]="{'hidden md:flex': !menuOpen, 'flex flex-col absolute top-full left-0 w-full bg-sky-800 shadow-lg md:relative md:bg-transparent md:w-auto md:shadow-none': menuOpen}"
-                class="gap-x-6 text-white md:flex-row md:items-center md:gap-x-6">
+                class="gap-x-6 text-white md:flex-row md:items-center md:gap-x-6 h-16">
                 <button (click)="navigateTo('inicio')"
                     class="py-2 px-4 text-xs font-bold uppercase border-b-4 transition-all"
-                    [ngClass]="{ 'border-orange-500': activeSection === 'inicio', 'border-transparent': activeSection !== 'inicio' }"
+                    [ngClass]="{ 'border-panton-orange': activeSection === 'inicio', 'border-transparent': activeSection !== 'inicio' }"
                     >
                     Inicio
                 </button>
                 <button (click)="navigateTo('queEs')"
                     class="py-2 px-4 text-xs font-bold uppercase border-b-4 transition-all"
-                    [ngClass]="{ 'border-orange-500': activeSection === 'queEs', 'border-transparent': activeSection !== 'queEs' }"
+                    [ngClass]="{ 'border-panton-orange': activeSection === 'queEs', 'border-transparent': activeSection !== 'queEs' }"
                     >
                     ¿Qué es Canal Denuncia?
                 </button>
                 <button (click)="navigateTo('comoEnviar')"
                     class="py-2 px-4 text-xs font-bold uppercase border-b-4 transition-all"
-                    [ngClass]="{ 'border-orange-500': activeSection === 'comoEnviar', 'border-transparent': activeSection !== 'comoEnviar' }">
+                    [ngClass]="{ 'border-panton-orange': activeSection === 'comoEnviar', 'border-transparent': activeSection !== 'comoEnviar' }">
                     ¿Cómo enviar una Denuncia?
                 </button>
                 <button (click)="navigateTo('soporte')"
                     class="py-2 px-4 text-xs font-bold uppercase border-b-4 transition-all"
-                    [ngClass]="{ 'border-orange-500': activeSection === 'soporte', 'border-transparent': activeSection !== 'soporte' }">
+                    [ngClass]="{ 'border-panton-orange': activeSection === 'soporte', 'border-transparent': activeSection !== 'soporte' }">
                     Soporte
                 </button>
 
-                <button [routerLink]="['/iniciar-sesion']" class="px-3 py-2 text-xs font-bold rounded-xl bg-orange-500 text-white shadow-lg md:ml-4">
+                <button [routerLink]="['/iniciar-sesion']" class="px-3 py-2 text-xs font-bold rounded-xl background-panton-orange text-white shadow-lg md:ml-4">
                     Iniciar Sesión
                 </button>
             </nav>

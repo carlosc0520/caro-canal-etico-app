@@ -22,12 +22,12 @@
                     <button 
                         class="flex items-center space-x-2 w-full py-2.5 px-5 rounded-2xl cursor-default text-bold"
                         [class.bg-orange-50]="i === currentStepIndex"
-                        [class.text-orange-500]="i === currentStepIndex"
+                        [class.color-panton-orange]="i === currentStepIndex"
                         [style]="i === currentStepIndex ? 'font-weight: bold !important' : ''"
                     >
                         <span class="w-8 h-8 flex items-center justify-center rounded-full" 
                               [class.bg-gray-100]="i !== currentStepIndex"
-                              [class.bg-orange-500]="i === currentStepIndex"
+                              [class.background-panton-orange]="i === currentStepIndex"
                               [class.text-white]="i === currentStepIndex">
                             {{ i + 1 }}
                         </span>
@@ -46,7 +46,7 @@
                     <i class="fa-solid fa-caret-left"></i>
                     Anterior
                 </button>
-                <button type="button" class="disabled:bg-orange-300 disabled:cursor-not-allowed px-4 py-2 bg-orange-500 text-white rounded-xl"
+                <button type="button" class="disabled:cursor-not-allowed px-4 py-2 background-panton-orange text-white rounded-xl"
                         (click)="goToNext()"
                         [disabled]="isNextDisabled()">
                     {{ currentStepIndex === steps.length - 1 ? 'Enviar' : 'Siguiente' }}

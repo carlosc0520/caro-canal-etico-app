@@ -1,6 +1,7 @@
 export interface ReceptorModel {
     rtafto: string;
     ncmpto: string;
+    iduser: number | null;
     idempresa: number | null;
     archvo: string | null;
     nombrs: string;

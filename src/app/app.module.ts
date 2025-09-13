@@ -9,7 +9,7 @@ import { LayoutModule } from 'src/views/layout/layout.module';
 import { ModulosComponent } from 'src/views/modulos/modulos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PonerDenunciaComponent } from 'src/views/modulos/poner-denuncia/poner-denuncia.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DatosHechoComponent } from 'src/views/modulos/poner-denuncia/datos-hecho/datos-hecho.component';
 import { DatosDenuncianteComponent } from 'src/views/modulos/poner-denuncia/datos-denunciante/datos-denunciante.component';
@@ -18,10 +18,11 @@ import { DatosTestigoComponent } from 'src/views/modulos/poner-denuncia/datos-te
 import { DatosArchivosComponent } from 'src/views/modulos/poner-denuncia/datos-archivos/datos-archivos.component';
 import { FinalizarDenunciaComponent } from 'src/views/modulos/poner-denuncia/finalizar-denuncia/finalizar-denuncia.component';
 import { AsignarContrasenaComponent } from 'src/views/modulos/poner-denuncia/asignar-contrasena/asignar-contrasena.component';
-import { LoaderComponent } from 'src/views/layout/loader/loader.component';
 import { VisualizarDenunciaComponent } from 'src/views/modulos/visualizar-denuncia/visualizar-denuncia.component';
 import { PanelModule } from 'src/views/panel/panel.module';
 import { IniciarSesionComponent } from 'src/views/iniciar-sesion/iniciar-sesion.component';
+import { SharedModule } from 'src/views/layout/loader/loader.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -31,13 +32,12 @@ import { IniciarSesionComponent } from 'src/views/iniciar-sesion/iniciar-sesion.
     PonerDenunciaComponent,
     DatosHechoComponent,
     DatosDenuncianteComponent,
-    DatosDenunciaComponent, 
+    DatosDenunciaComponent,
     DatosTestigoComponent,
     VisualizarDenunciaComponent,
     DatosArchivosComponent,
     FinalizarDenunciaComponent,
     AsignarContrasenaComponent,
-    LoaderComponent,
     IniciarSesionComponent
   ],
   imports: [
@@ -48,7 +48,13 @@ import { IniciarSesionComponent } from 'src/views/iniciar-sesion/iniciar-sesion.
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    PanelModule
+    PanelModule,
+    SharedModule,
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxChartsModule  
   ],
   providers: [],
   bootstrap: [AppComponent]

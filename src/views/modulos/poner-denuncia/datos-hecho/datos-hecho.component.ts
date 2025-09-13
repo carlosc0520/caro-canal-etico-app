@@ -15,14 +15,12 @@ export class DatosHechoComponent {
   empresas: any[] = [
     {
       id: 1,
-      mrca: 'CARO&ASOCIADOS SAC'
+      mrca: 'Caro & Asociados'
     }
   ];
   tiposDenuncia: TipoDenunciaModel[] = [];
   receptores: ReceptorModel[] = [];
   receptorPrincipal: ReceptorModel = {} as ReceptorModel;
-  isNotReceptorPrincipal: boolean = false;
-
 
   constructor(
     private formularioDenunciaService: FormularioDenunciaService,
@@ -32,6 +30,7 @@ export class DatosHechoComponent {
       EmpresaId: new FormControl('', Validators.required),
       TipoDenunciaId: new FormControl('', Validators.required),
       ReceptorId: new FormControl('', Validators.required),
+      isNotReceptorPrincipal: new FormControl(false),
     });
   }
 
@@ -44,8 +43,15 @@ export class DatosHechoComponent {
       this.formDatosHecho.patchValue(savedData);
     }
 
-    this.getTiposDenuncia();
-    this.getReceptores();
+    this.receptores = this.formularioDenunciaService.getReceptorUrl("Receptor");
+    this.tiposDenuncia = this.formularioDenunciaService.getTipoDenunciaUrl();
+    this.receptorPrincipal = this.receptores.find((receptor: ReceptorModel) => receptor.principal === true) || {} as ReceptorModel;
+    this.formDatosHecho.get('isNotReceptorPrincipal')?.setValue(this.receptorPrincipal ? false : true);
+    if (this.receptorPrincipal) {
+      this.formDatosHecho.get('ReceptorId')?.setValue(this.receptorPrincipal.id);
+    }else{
+      this.formDatosHecho.get('isNotReceptorPrincipal')?.setValue(true);
+    }
   }
 
   getFormData() {
@@ -58,38 +64,30 @@ export class DatosHechoComponent {
     }
   }
 
-  getTiposDenuncia() {
-    this.formularioDenunciaService.getTipoDenuncia().subscribe((response: TipoDenunciaModel[]) => {
-      this.tiposDenuncia = response;
-    });
-  }
-
-  getReceptores() {
-    this.formularioDenunciaService.getReceptores().subscribe((response: ReceptorModel[]) => {
-      this.receptores = response;
-      this.receptorPrincipal = this.receptores.find((receptor: ReceptorModel) => receptor.principal === true) || {} as ReceptorModel;
-      this.isNotReceptorPrincipal = this.receptorPrincipal ? false : true;
-      if (this.receptorPrincipal) {
-        this.formDatosHecho.get('ReceptorId')?.setValue(this.receptorPrincipal.id);
-      }
-    });
-  }
 
   // * METODOS
+  getDetalleTipoDenuncia(){
+    const selectedTipoDenuncia = this.tiposDenuncia.find((tipo: TipoDenunciaModel) => tipo.id == this.formDatosHecho.get('TipoDenunciaId')?.value);
+    return selectedTipoDenuncia ? selectedTipoDenuncia.detalle : null;
+  }
+
   proponerOtroReceptor() {
     this.formDatosHecho.get('ReceptorId')?.setValue(null);
     this.receptorPrincipal = {} as ReceptorModel;
-    this.isNotReceptorPrincipal = true;
+    this.formDatosHecho.get('isNotReceptorPrincipal')?.setValue(true);
   }
 
   onReceptorChange(event: any) {
     const selectedReceptor = this.receptores.find((receptor: ReceptorModel) => receptor.id == this.formDatosHecho.get('ReceptorId')?.value);
     if (selectedReceptor) {
-      this.isNotReceptorPrincipal = selectedReceptor.principal ? false : true;
+      this.formDatosHecho.get('isNotReceptorPrincipal')?.setValue(selectedReceptor.principal ? false : true);
       this.receptorPrincipal = selectedReceptor;
     }
   }
 
+  getIsNotReceptorPrincipal(): any {
+    return this.formDatosHecho.get('isNotReceptorPrincipal')?.value;
+  }
   get isValid(): boolean {
     return this.formDatosHecho.valid;
   }

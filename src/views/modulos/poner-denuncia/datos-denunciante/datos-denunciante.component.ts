@@ -36,7 +36,7 @@ export class DatosDenuncianteComponent implements OnInit {
       this.formDatosDenunciante.patchValue(savedData);
     }
 
-    this.getRelacionEmpresa();
+    this.relaciones = this.formularioDenunciaService.getRelacionEmpresaUrl();
   }
 
   conditionalValidator(condition: () => boolean, validator: ValidatorFn): ValidatorFn {
@@ -45,14 +45,6 @@ export class DatosDenuncianteComponent implements OnInit {
       return validator(control);
     };
   }
-
-  getRelacionEmpresa() {
-    this.formularioDenunciaService.getRelacionEmpresa().subscribe((response: RelacionEmpresaModel[]) => {
-      console.log(response);
-      this.relaciones = response;
-    });
-  }
-
 
   getFormData() {
     return this.formDatosDenunciante.value;
